@@ -1,0 +1,18 @@
+[project]
+name = "ai-voice-assistant"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "edge-tts>=7.2.7",
+    "groq>=1.0.0",
+    "langchain>=1.2.4",
+    "langchain-ollama>=1.0.1",
+    "playsound3>=3.3.0",
+    "python-dotenv>=1.2.1",
+    "scipy>=1.17.0",
+    "sounddevice>=0.5.3",
+    "streamlit>=1.53.0",
+    "streamlit-mic-recorder>=0.0.8",
+]
