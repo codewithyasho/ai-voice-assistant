@@ -63,15 +63,20 @@ def speech_to_text(audio_file):
 def process_with_llm(user_query):
     """Process text with LLM"""
     try:
-        model = init_chat_model(
-            model="groq:llama-3.1-8b-instant",
-            temperature=0.2
+        client = Groq()
+        completion = client.chat.completions.create(
+            model="llama-3.1-8b-instant",
+            messages=[
+                {
+                    "role": "user",
+                    "content": f"You are a helpful voice assistant. Answer the following query in short and in a concise manner: {user_query}"
+                }
+            ],
+            temperature=0.2,
         )
 
-        response = model.invoke(
-            f"You are a helpful voice assistant. Answer the following query in short and in a concise manner: {user_query}"
-        )
-        result = response.content
+        result = completion.choices[0].message.content
+        # print(result)
 
         # Save LLM response
         with open(LLM_TEXT_FILE, "w", encoding="utf-8") as f:
@@ -130,7 +135,7 @@ audio_data = mic_recorder(
     start_prompt="🎙️ Start Recording",
     stop_prompt="⏹️ Stop Recording",
     just_once=False,
-    use_container_width=True,
+    use_container_width=False,
     key="voice_recorder"
 )
 
